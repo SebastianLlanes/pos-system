@@ -1,0 +1,82 @@
+.page { padding: var(--spacing-xl); display: flex; flex-direction: column; gap: var(--spacing-lg); }
+
+.header { display: flex; justify-content: space-between; align-items: center; }
+
+.title { font-size: var(--font-size-xl); font-weight: 700; color: var(--color-text-primary); margin: 0; }
+
+.filters { display: flex; gap: var(--spacing-sm); flex-wrap: wrap; }
+
+.filterBtn {
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: #fff;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: var(--font-family-base);
+}
+.filterActive {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.tableWrapper { overflow-x: auto; border-radius: var(--radius-lg); border: 1px solid var(--color-border); }
+
+.table { width: 100%; border-collapse: collapse; font-size: var(--font-size-sm); }
+
+.table thead tr { background: #f9fafb; }
+
+.table th {
+  padding: var(--spacing-sm) var(--spacing-md);
+  text-align: left;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+}
+
+.table tbody tr:last-child td { border-bottom: none; }
+
+.table tbody tr:hover { background: #f9fafb; }
+
+.rowInactive td { opacity: 0.5; }
+
+.productName { font-weight: 500; }
+
+.badge {
+  padding: 2px var(--spacing-sm);
+  background: #eff6ff;
+  color: var(--color-primary);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+}
+
+.typeLabel { color: var(--color-text-secondary); }
+
+.price { font-weight: 600; }
+
+.statusBtn {
+  padding: 2px var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  border: none;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-family-base);
+}
+.statusActive  { background: #d1fae5; color: #065f46; }
+.statusInactive { background: #fee2e2; color: #991b1b; }
+
+.actions { display: flex; gap: var(--spacing-xs); }
+
+.empty { display: flex; flex-direction: column; align-items: center; gap: var(--spacing-md); padding: var(--spacing-xl); color: var(--color-text-secondary); }

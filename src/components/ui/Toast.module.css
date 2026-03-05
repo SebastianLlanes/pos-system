@@ -1,0 +1,28 @@
+.toast {
+  position: fixed;
+  bottom: var(--spacing-xl);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  z-index: 9999;
+  animation: slideUp 0.25s ease;
+}
+
+.success { background: var(--color-success); color: #fff; }
+.error   { background: var(--color-danger);  color: #fff; }
+.info    { background: var(--color-primary); color: #fff; }
+
+.icon { font-size: var(--font-size-lg); }
+.message { font-family: var(--font-family-base); }
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateX(-50%) translateY(16px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}

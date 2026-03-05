@@ -1,0 +1,27 @@
+/* ===== Desktop Large (1440+) ===== */
+@media (min-width: 1440px) {
+  :root {
+    --sidebar-width: 260px;
+  }
+}
+
+/* ===== Laptop (<= 1366px) ===== */
+@media (max-width: 1366px) {
+  :root {
+    --sidebar-width: 220px;
+  }
+}
+
+/* ===== Tablet (<= 1024px) ===== */
+@media (max-width: 1024px) {
+  :root {
+    --sidebar-width: 200px;
+  }
+}
+
+/* ===== Mobile (<= 768px) ===== */
+@media (max-width: 768px) {
+  :root {
+    --sidebar-width: 0px;
+  }
+}
