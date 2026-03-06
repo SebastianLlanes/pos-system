@@ -20,3 +20,18 @@
 .logoutButton:hover {
   opacity: 0.9;
 }
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.username {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.username strong {
+  color: var(--color-text-primary);
+}

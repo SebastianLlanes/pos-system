@@ -6,6 +6,9 @@ import ProductsPage from "./modules/products/pages/ProductsPage";
 import SalesPage from "./modules/sales/pages/SalesPage";
 import CashPage from "./modules/cash/pages/CashPage";
 import BackupPage from "./modules/backup/pages/BackupPage";
+
+import RoleRoute from "./app/routes/RoleRoute";
+import UsersPage from "./modules/users/pages/UsersPage";
 // Páginas (las iremos creando por etapa)
 // import DashboardPage from "./modules/dashboard/pages/DashboardPage";
 
@@ -14,7 +17,6 @@ function App() {
     <Routes>
       <Route path="/login" element={<LoginPage />} />
 
-      
       <Route
         element={
           <PrivateRoute>
@@ -26,7 +28,22 @@ function App() {
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/sales" element={<SalesPage />} />
         <Route path="/cash" element={<CashPage />} />
-        <Route path="/backup" element={<BackupPage />} />
+        <Route
+          path="/users"
+          element={
+            <RoleRoute allowedRoles={["owner"]}>
+              <UsersPage />
+            </RoleRoute>
+          }
+        />
+        <Route
+          path="/backup"
+          element={
+            <RoleRoute allowedRoles={["owner"]}>
+              <BackupPage />
+            </RoleRoute>
+          }
+        />
       </Route>
 
       <Route path="*" element={<Navigate to="/login" replace />} />
