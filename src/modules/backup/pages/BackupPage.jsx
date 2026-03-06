@@ -1,7 +1,9 @@
 import { useBackup } from "../hooks/useBackup";
+import { useState } from "react";
 import Button from "../../../components/ui/Button";
 import Toast from "../../../components/ui/Toast";
-import { useState } from "react";
+import Spinner from "../../../components/ui/Spinner";
+import { useMinLoading } from "../../../hooks/useMinLoading";
 import styles from "./BackupPage.module.css";
 
 const INCLUDED = [
@@ -13,6 +15,7 @@ const INCLUDED = [
 function BackupPage() {
   const { handleBackup, loading, error, lastBackup } = useBackup();
   const [toast, setToast] = useState(null);
+  const showLoader = useMinLoading(loading);
 
   const onBackup = async () => {
     const success = await handleBackup();
@@ -31,6 +34,9 @@ function BackupPage() {
       minute: "2-digit",
     });
   };
+
+  if (showLoader) return <Spinner fullscreen />;
+  if (error)   return <p className={styles.error}>{error}</p>;
 
   return (
     <div className={styles.page}>

@@ -4,6 +4,7 @@ import ClosingForm from "../components/ClosingForm";
 import ClosingHistory from "../components/ClosingHistory";
 import Toast from "../../../components/ui/Toast";
 import Spinner from "../../../components/ui/Spinner";
+import { useMinLoading } from "../../../hooks/useMinLoading";
 import styles from "./CashPage.module.css";
 
 const TABS = [
@@ -19,6 +20,7 @@ function CashPage() {
 
   const [activeTab, setActiveTab] = useState("closing");
   const [toast, setToast]         = useState(null);
+  const showLoader = useMinLoading(loading);
 
   const onConfirmClose = async (data) => {
     try {
@@ -30,7 +32,7 @@ function CashPage() {
     }
   };
 
-  if (loading) return <Spinner fullscreen />;
+  if (showLoader) return <Spinner fullscreen />;
   if (error)   return <p>{error}</p>;
 
   return (

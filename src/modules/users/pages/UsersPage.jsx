@@ -3,6 +3,7 @@ import { useUsers } from "../hooks/useUsers";
 import UserForm from "../components/UserForm";
 import Button from "../../../components/ui/Button";
 import Spinner from "../../../components/ui/Spinner";
+import { useMinLoading } from "../../../hooks/useMinLoading";
 import Toast from "../../../components/ui/Toast";
 import styles from "./UsersPage.module.css";
 
@@ -20,6 +21,7 @@ function UsersPage() {
 
   const [showForm, setShowForm] = useState(false);
   const [toast, setToast]       = useState(null);
+  const showLoader = useMinLoading(loading);
 
   const onCreateUser = async (data) => {
     try {
@@ -40,8 +42,8 @@ function UsersPage() {
     }
   };
 
-  if (loading) return <Spinner fullscreen />;
-  if (error)   return <p>{error}</p>;
+      if (showLoader) return <Spinner fullscreen />;
+      if (error)   return <p>{error}</p>;
 
   return (
     <div className={styles.page}>

@@ -8,6 +8,7 @@ import WeightModal from "../components/WeightModal";
 import VariantModal from "../components/VariantModal";
 import PaymentModal from "../components/PaymentModal";
 import Spinner from "../../../components/ui/Spinner";
+import { useMinLoading } from "../../../hooks/useMinLoading";
 import Toast from "../../../components/ui/Toast";
 import styles from "./SalesPage.module.css";
 
@@ -15,6 +16,7 @@ const MODAL = { NONE: "none", WEIGHT: "weight", VARIANT: "variant", PAYMENT: "pa
 
 function SalesPage() {
   const { products, loading } = useProducts();
+  const showLoader = useMinLoading(loading);
   const {
     items, itemsSubtotal,
     addUnitItem, addWeightItem, addVariantItem,
@@ -73,7 +75,7 @@ const handleConfirmSale = async ({ customerName, totalDiscount, total, payments 
   }
 };
 
-  if (loading) return <Spinner fullscreen />;
+  if (showLoader) return <Spinner fullscreen />;
 
   return (
     <div className={styles.page}>

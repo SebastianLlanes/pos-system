@@ -3,6 +3,7 @@ import { useProducts } from "../hooks/useProducts";
 import ProductForm from "../components/ProductForm";
 import Button from "../../../components/ui/Button";
 import Spinner from "../../../components/ui/Spinner";
+import { useMinLoading } from "../../../hooks/useMinLoading";
 import { CATEGORIES } from "../../../constants/categories";
 import styles from "./ProductsPage.module.css";
 
@@ -19,6 +20,7 @@ function ProductsPage() {
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [filterCategory, setFilterCategory] = useState("all");
+  const showLoader = useMinLoading(loading);
 
   const openAdd = () => {
     setEditingProduct(null);
@@ -57,7 +59,7 @@ function ProductsPage() {
     return `$${product.price.toLocaleString()}`;
   };
 
-  if (loading) return <Spinner fullscreen />;
+  if (showLoader) return <Spinner fullscreen />;
   if (error) return <p>{error}</p>;
 
   return (

@@ -1,9 +1,10 @@
+import { useEffect, useState } from "react";
 import styles from "./Spinner.module.css";
 
 function Spinner({ fullscreen = false }) {
-  if (fullscreen) {
+if (fullscreen) {
     return (
-     <div className={styles.fullscreen}>
+      <div className={styles.fullscreen}>
         <img
           src="/logo-cupcake.png"
           alt="Cargando..."

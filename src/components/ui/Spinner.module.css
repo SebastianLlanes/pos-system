@@ -12,12 +12,17 @@
   width: 90px;
   height: 90px;
   object-fit: contain;
-  animation: bounce 5s ease-in-out infinite alternate;
+  animation: dropBounce 1.4s ease-out forwards;
 }
 
-@keyframes bounce {
-  from { transform: translateY(0px);   opacity: 0.85; }
-  to   { transform: translateY(-14px); opacity: 1; }
+@keyframes dropBounce {
+  0%   { transform: translateY(-500px); opacity: 0;   }
+  50%  { transform: translateY(0px);    opacity: 1;   }
+  65%  { transform: translateY(-35px);               }
+  78%  { transform: translateY(0px);                 }
+  88%  { transform: translateY(-15px);               }
+  95%  { transform: translateY(0px);                 }
+  100% { transform: translateY(0px);    opacity: 1;  }
 }
 
 /* Spinner chico para uso inline */
@@ -27,7 +32,7 @@
   border: 3px solid var(--color-border);
   border-top-color: var(--color-primary);
   border-radius: 50%;
-  animation: spin 1.5s linear infinite;
+  animation: spin 0.7s linear infinite;
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }
