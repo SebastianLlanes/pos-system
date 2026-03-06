@@ -5,6 +5,7 @@ const links = [
   { to: "/sales",   label: "Ventas"    },
   { to: "/products",label: "Productos" },
   { to: "/cash",     label: "Caja"      },
+  { to: "/backup",   label: "Backup"    },
 ];
 
 function Sidebar() {
