@@ -1,18 +1,24 @@
 :root {
   /* ========= COLORES BASE ========= */
-  --color-bg-app: #f5f6fa;
-  --color-bg-sidebar: #1e1f26;
+  --color-bg-app: #fdf8f6;
+  --color-bg-sidebar: #2a2118;
   --color-bg-header: #ffffff;
 
-  --color-primary: #3b82f6;
-  --color-danger: #ef4444;
-  --color-success: #10b981;
+  --color-primary: #d4a018;
+  --color-primary-light: #f4e5e8;
+  --color-secondary: #db9f9a;
+  --color-secondary-light: #e8c2bf;
+  --color-accent: #a1aa8b;
+  --color-accent-dark: #828a6e;
 
-  --color-text-primary: #111827;
-  --color-text-secondary: #6b7280;
+  --color-danger: #c0392b;
+  --color-success: #828a6e;
+
+  --color-text-primary: #2a2118;
+  --color-text-secondary: #7a6a5a;
   --color-text-light: #ffffff;
 
-  --color-border: #e5e7eb;
+  --color-border: #ede0d8;
 
   /* ========= TIPOGRAFÍA ========= */
   --font-family-base: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
@@ -41,8 +47,8 @@
   --radius-lg: 12px;
 
   /* ========= SOMBRAS ========= */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+  --shadow-sm: 0 1px 2px rgba(42, 33, 24, 0.06);
+  --shadow-md: 0 4px 8px rgba(42, 33, 24, 0.10);
 
   /* ========= Z-INDEX ========= */
   --z-sidebar: 100;

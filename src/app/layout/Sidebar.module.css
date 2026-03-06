@@ -1,37 +1,56 @@
 .sidebar {
   width: var(--sidebar-width);
-  background-color: var(--color-bg-sidebar);
-  color: var(--color-text-light);
-  padding: var(--spacing-lg) var(--spacing-md);
+  height: 100vh;
+  background: var(--color-bg-sidebar);
   display: flex;
   flex-direction: column;
+  padding: var(--spacing-lg) 0;
+  position: sticky;
+  top: 0;
+  flex-shrink: 0;
 }
 
-.logo {
-  margin-bottom: var(--spacing-xl);
-  font-size: var(--font-size-lg);
-  font-weight: 600;
+.logoWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md) var(--spacing-lg) var(--spacing-xl);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: var(--spacing-md);
+}
+
+.logoImg {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
 }
 
 .nav {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
+  padding: 0 var(--spacing-sm);
 }
 
 .link {
+  display: flex;
+  align-items: center;
   padding: var(--spacing-sm) var(--spacing-md);
-  border-radius: var(--radius-sm);
-  color: var(--color-text-secondary);
-  transition: background 0.2s ease;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  transition: all 0.15s ease;
 }
 
 .link:hover {
-  background-color: rgba(255, 255, 255, 0.08);
-  color: var(--color-text-light);
+  background: rgba(212, 160, 24, 0.15);
+  color: #d4a018;
 }
 
 .active {
-  background-color: var(--color-primary);
-  color: var(--color-text-light);
+  background: rgba(212, 160, 24, 0.2);
+  color: #d4a018;
+  font-weight: 600;
 }

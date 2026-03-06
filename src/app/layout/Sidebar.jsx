@@ -2,7 +2,6 @@ import { NavLink } from "react-router-dom";
 import styles from "./Sidebar.module.css";
 
 const links = [
-  { to: "/",         label: "Dashboard" },
   { to: "/sales",   label: "Ventas"    },
   { to: "/products",label: "Productos" },
   { to: "/cash",     label: "Caja"      },
@@ -11,7 +10,9 @@ const links = [
 function Sidebar() {
   return (
     <aside className={styles.sidebar}>
-      <h2 className={styles.logo}>POS</h2>
+      <div className={styles.logoWrapper}>
+        <img src="/logo-icon.png" alt="Querer-T" className={styles.logoImg} />
+      </div>
 
       <nav className={styles.nav}>
         {links.map(({ to, label }) => (

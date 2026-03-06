@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../services/firebase/config";
+import Input from "../../../components/ui/Input";
+import Button from "../../../components/ui/Button";
 import styles from "./LoginPage.module.css";
 
 function LoginPage() {
@@ -23,7 +25,7 @@ const handleSubmit = async (e) => {
 
     console.log("login ok", userCredential);
 
-    navigate("/");
+    navigate("/sales");
 
   } catch (err) {
     console.log("error login", err);
@@ -31,33 +33,39 @@ const handleSubmit = async (e) => {
   }
 };
 
-  return (
-    <div className={styles.container}>
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <h2>Iniciar sesión</h2>
+return (
+  <div className={styles.container}>
+    <form className={styles.form} onSubmit={handleSubmit}>
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+      <div className={styles.logoWrapper}>
+        <img src="/logo.png" alt="Querer-T" className={styles.logo} />
+      </div>
 
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+      <Input
+        label="Email"
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
 
-        {error && <p className={styles.error}>{error}</p>}
+      <Input
+        label="Contraseña"
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+      />
 
-        <button type="submit">Ingresar</button>
-      </form>
-    </div>
-  );
+      {error && <p className={styles.error}>{error}</p>}
+
+      <Button type="submit" variant="primary" size="lg">
+        Ingresar
+      </Button>
+
+    </form>
+  </div>
+);
 }
 
 export default LoginPage;
