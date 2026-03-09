@@ -74,7 +74,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
-  animation: riseUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.8s both;
+  animation: riseUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.8s both;
 }
 
 .error {
