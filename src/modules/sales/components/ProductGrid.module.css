@@ -5,11 +5,13 @@
   height: 100%;
   overflow: hidden;
 }
+
 .categories {
   display: flex;
   gap: var(--spacing-xs);
   flex-wrap: wrap;
 }
+
 .catBtn {
   padding: var(--spacing-xs) var(--spacing-md);
   border-radius: var(--radius-md);
@@ -20,47 +22,67 @@
   color: var(--color-text-secondary);
   cursor: pointer;
   transition: all 0.15s ease;
+  font-weight: 500;
 }
+
 .catActive {
   background: var(--color-primary);
   color: #fff;
   border-color: var(--color-primary);
+  font-weight: 600;
 }
+
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  gap: var(--spacing-sm);
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--spacing-md);
   overflow-y: auto;
   padding-right: var(--spacing-xs);
+  padding-bottom: var(--spacing-md);
 }
+
 .productBtn {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: space-between;
   gap: var(--spacing-xs);
   padding: var(--spacing-md);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-border);
   background: #fff;
   cursor: pointer;
   transition: all 0.15s ease;
   font-family: var(--font-family-base);
   text-align: left;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 2px 0px var(--color-border);
+  min-height: 90px;
+  width: 100%;
 }
+
 .productBtn:hover {
-  border-color: var(--color-primary);
-  background: #eff6ff;
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
+  filter: brightness(0.96);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 0px var(--hover-shadow, var(--color-border));
 }
+
+.productBtn:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0px var(--color-primary);
+}
+
 .productName {
   font-size: var(--font-size-sm);
-  font-weight: 600;
+  font-weight: 700;
   color: var(--color-text-primary);
   line-height: 1.3;
 }
+
 .productPrice {
   font-size: var(--font-size-xs);
-  color: var(--color-text-secondary);
+  font-weight: 600;
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+  padding: 2px var(--spacing-sm);
+  border-radius: var(--radius-sm);
 }

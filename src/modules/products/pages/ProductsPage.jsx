@@ -4,7 +4,8 @@ import ProductForm from "../components/ProductForm";
 import Button from "../../../components/ui/Button";
 import Spinner from "../../../components/ui/Spinner";
 import { useMinLoading } from "../../../hooks/useMinLoading";
-import { CATEGORIES } from "../../../constants/categories";
+import { CATEGORIES, CATEGORY_COLORS } from "../../../constants/categories";
+import Toast from "../../../components/ui/Toast";
 import styles from "./ProductsPage.module.css";
 
 function ProductsPage() {
@@ -19,7 +20,9 @@ function ProductsPage() {
   } = useProducts();
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
+  const [deletingId, setDeletingId] = useState(null);
   const [filterCategory, setFilterCategory] = useState("all");
+  const [toast, setToast] = useState(null);
   const showLoader = useMinLoading(loading);
 
   const openAdd = () => {
@@ -45,9 +48,12 @@ function ProductsPage() {
   };
 
   const filtered =
-    filterCategory === "all"
-      ? products
-      : products.filter((p) => p.category === filterCategory);
+  filterCategory === "all"
+    ? [...products].sort(
+        (a, b) =>
+          CATEGORIES.indexOf(a.category) - CATEGORIES.indexOf(b.category)
+      )
+    : products.filter((p) => p.category === filterCategory);
 
   const formatPrice = (product) => {
     if (product.type === "weight")
@@ -80,11 +86,18 @@ function ProductsPage() {
         {CATEGORIES.map((cat) => {
           const count = products.filter((p) => p.category === cat).length;
           if (count === 0) return null;
+          const colors = CATEGORY_COLORS[cat];
+          const isActive = filterCategory === cat;
           return (
             <button
               key={cat}
-              className={`${styles.filterBtn} ${filterCategory === cat ? styles.filterActive : ""}`}
+              className={styles.filterBtn}
               onClick={() => setFilterCategory(cat)}
+              style={{
+                background: isActive ? colors.border : colors.bg,
+                borderColor: colors.border,
+                color: isActive ? "#fff" : colors.text,
+              }}
             >
               {cat} ({count})
             </button>
@@ -121,7 +134,16 @@ function ProductsPage() {
                 >
                   <td className={styles.productName}>{product.name}</td>
                   <td>
-                    <span className={styles.badge}>{product.category}</span>
+                    <span
+                      className={styles.badge}
+                      style={{
+                        background: CATEGORY_COLORS[product.category]?.bg,
+                        color: CATEGORY_COLORS[product.category]?.text,
+                        border: `1px solid ${CATEGORY_COLORS[product.category]?.border}`,
+                      }}
+                    >
+                      {product.category}
+                    </span>
                   </td>
                   <td className={styles.typeLabel}>
                     {product.type === "unit" && "Unidad"}
@@ -147,13 +169,39 @@ function ProductsPage() {
                     >
                       Editar
                     </Button>
-                    <Button
-                      size="sm"
-                      variant="danger"
-                      onClick={() => handleDelete(product.id)}
-                    >
-                      Eliminar
-                    </Button>
+                    {deletingId === product.id ? (
+                      <div className={styles.confirmDelete}>
+                        <Button
+                          size="sm"
+                          variant="danger"
+                          onClick={async () => {
+                            await handleDelete(product.id);
+                            setDeletingId(null);
+                            setToast({
+                              message: "Producto eliminado",
+                              type: "success",
+                            });
+                          }}
+                        >
+                          Confirmar
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => setDeletingId(null)}
+                        >
+                          Cancelar
+                        </Button>
+                      </div>
+                    ) : (
+                      <Button
+                        size="sm"
+                        variant="danger"
+                        onClick={() => setDeletingId(product.id)}
+                      >
+                        Eliminar
+                      </Button>
+                    )}
                   </td>
                 </tr>
               ))}
@@ -167,6 +215,14 @@ function ProductsPage() {
           onSubmit={handleSubmit}
           onCancel={closeForm}
           initialData={editingProduct}
+        />
+      )}
+
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
         />
       )}
     </div>
