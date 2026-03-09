@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import styles from "./Toast.module.css";
 
 function Toast({ message, type = "success", onClose, duration = 3000 }) {
@@ -7,7 +8,7 @@ function Toast({ message, type = "success", onClose, duration = 3000 }) {
     return () => clearTimeout(timer);
   }, [onClose, duration]);
 
-  return (
+ return createPortal(
     <div className={`${styles.toast} ${styles[type]}`}>
       <span className={styles.icon}>
         {type === "success" && "✓"}
@@ -15,8 +16,8 @@ function Toast({ message, type = "success", onClose, duration = 3000 }) {
         {type === "info"    && "ℹ"}
       </span>
       <span className={styles.message}>{message}</span>
-    </div>
+    </div>,
+    document.body
   );
 }
-
 export default Toast;

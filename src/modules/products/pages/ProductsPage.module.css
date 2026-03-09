@@ -149,3 +149,120 @@
   font-weight: 600;
   color: var(--color-danger);
 }
+
+@media (max-width: 768px) {
+  .page {
+    padding: var(--spacing-md);
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  .filters {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: var(--spacing-xs);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .filterBtn {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .tableWrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table th,
+  .table td {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-xs);
+    white-space: nowrap;
+  }
+
+  .actions {
+    flex-direction: column;
+    min-width: unset;
+  }
+}
+
+/* ── Cards mobile ── */
+.cardList {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .tableWrapper {
+    display: none;
+  }
+
+  .cardList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .productCard {
+    background: #fff;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .cardInactive {
+    opacity: 0.55;
+  }
+
+  .cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  .cardName {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 4px;
+  }
+
+  .cardBadge {
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+    padding: 2px var(--spacing-sm);
+    border-radius: var(--radius-sm);
+  }
+
+  .cardBody {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cardType {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+  }
+
+  .cardPrice {
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .cardActions {
+    display: flex;
+    gap: var(--spacing-xs);
+    justify-content: flex-end;
+  }
+}

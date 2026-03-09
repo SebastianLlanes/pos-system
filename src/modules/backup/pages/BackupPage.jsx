@@ -39,7 +39,7 @@ function BackupPage() {
   if (error)   return <p className={styles.error}>{error}</p>;
 
   return (
-    <div className={styles.page}>
+    <div  className={`${styles.page} pageEnter`}>
       <div className={styles.card}>
 
         {/* Header */}

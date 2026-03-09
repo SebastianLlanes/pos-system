@@ -1,3 +1,4 @@
+/* ── Desktop sidebar ── */
 .sidebar {
   width: var(--sidebar-width);
   height: 100vh;
@@ -8,6 +9,8 @@
   position: sticky;
   top: 0;
   flex-shrink: 0;
+  transition: width 0.3s ease;
+  overflow: hidden;
 }
 
 .logoWrapper {
@@ -42,6 +45,7 @@
   color: rgba(255,255,255,0.55);
   text-decoration: none;
   transition: all 0.15s ease;
+  white-space: nowrap;
 }
 
 .link:hover {
@@ -53,4 +57,62 @@
   background: rgba(212, 160, 24, 0.2);
   color: #d4a018;
   font-weight: 600;
+}
+
+/* ── Bottom nav mobile ── */
+.bottomNav {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+
+  .bottomNav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--bottom-nav-height);
+    background: var(--color-bg-sidebar);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    z-index: var(--z-sidebar);
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 var(--spacing-sm);
+  }
+
+  .bottomNavLink {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    text-decoration: none;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--radius-md);
+    transition: all 0.15s ease;
+    flex: 1;
+  }
+
+  .bottomNavIcon {
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  .bottomNavLabel {
+    font-size: 10px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.55);
+  }
+
+  .bottomNavActive .bottomNavIcon {
+    transform: translateY(-2px);
+  }
+
+  .bottomNavActive .bottomNavLabel {
+    color: var(--color-primary);
+    font-weight: 700;
+  }
 }

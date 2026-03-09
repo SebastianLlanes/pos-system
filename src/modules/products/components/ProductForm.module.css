@@ -86,3 +86,40 @@
   justify-content: flex-end;
   gap: var(--spacing-sm);
 }
+
+@media (max-width: 768px) {
+  .overlay {
+    align-items: flex-end;
+  }
+
+  .modal {
+    max-width: 96%;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    padding: var(--spacing-lg);
+    max-height: 90vh;
+    overflow-y: auto;
+    top: 36px;
+    position: absolute;
+  }
+
+  .typeGroup {
+    flex-direction: column;
+  }
+
+  .typeBtn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .variantRow {
+    flex-wrap: wrap;
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+  }
+
+  .actions > * {
+    width: 100%;
+  }
+}

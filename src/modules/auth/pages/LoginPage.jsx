@@ -19,7 +19,8 @@ function LoginPage() {
     setError("");
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate("/sales");
+      const isMobile = window.innerWidth <= 768;
+      navigate(isMobile ? "/cash" : "/sales");
     } catch (err) {
       console.error(err);
       setError("Credenciales inválidas");

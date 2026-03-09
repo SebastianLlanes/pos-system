@@ -36,7 +36,7 @@ function CashPage() {
   if (error)   return <p>{error}</p>;
 
   return (
-    <div className={styles.page}>
+    <div  className={`${styles.page} pageEnter`}>
       <div className={styles.tabs}>
         {TABS.map((tab) => (
           <button

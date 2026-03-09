@@ -41,11 +41,18 @@ ul {
   list-style: none;
 }
 
-#nprogress .bar {
-  background: var(--color-primary) !important;
-  height: 7px;
+/* ── Animación de entrada de páginas ── */
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-#nprogress .peg {
-  box-shadow: 0 0 10px var(--color-primary), 0 0 5px var(--color-primary);
+.pageEnter {
+  animation: pageEnter 0.8s ease forwards;
 }

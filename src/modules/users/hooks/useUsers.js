@@ -3,6 +3,7 @@ import {
   getUsers, createUser,
   updateUserRole, toggleUserActive, resetUserPassword,
 } from "../services/userService";
+import { deleteUser } from "../services/userService";
 
 export function useUsers() {
   const [users, setUsers]   = useState([]);
@@ -44,9 +45,15 @@ export function useUsers() {
     await resetUserPassword(email);
   };
 
+  const handleDelete = async (uid) => {
+  await deleteUser(uid);
+  await fetchUsers();
+};
+
   return {
     users, loading, error,
     handleCreate, handleUpdateRole,
     handleToggleActive, handleResetPassword,
+    handleDelete,
   };
 }

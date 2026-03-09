@@ -78,7 +78,7 @@ const handleConfirmSale = async ({ customerName, totalDiscount, total, payments 
   if (showLoader) return <Spinner fullscreen />;
 
   return (
-    <div className={styles.page}>
+    <div  className={`${styles.page} pageEnter`}>
       {/* Botonera izquierda */}
       <div className={styles.gridSection}>
         <ProductGrid

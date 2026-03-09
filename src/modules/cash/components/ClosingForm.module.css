@@ -87,3 +87,14 @@
   margin: 0;
   text-align: center;
 }
+
+@media (max-width: 768px) {
+  .card {
+    padding: var(--spacing-md);
+  }
+
+  .summary {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+}

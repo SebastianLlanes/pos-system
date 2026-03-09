@@ -18,10 +18,12 @@
     --sidebar-width: 200px;
   }
 }
-
 /* ===== Mobile (<= 768px) ===== */
 @media (max-width: 768px) {
   :root {
     --sidebar-width: 0px;
+    --header-height: 56px;
+    --bottom-nav-height: 64px;
   }
 }
+

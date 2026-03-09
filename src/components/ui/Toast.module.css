@@ -1,6 +1,6 @@
 .toast {
   position: fixed;
-  bottom: var(--spacing-xl);
+  top: 50%;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -12,17 +12,48 @@
   font-size: var(--font-size-md);
   font-weight: 600;
   z-index: 9999;
-  animation: slideUp 0.25s ease;
+  animation: popCenter 0.25s ease;
+  white-space: nowrap;
 }
 
-.success { background: var(--color-success); color: #fff; }
-.error   { background: var(--color-danger);  color: #fff; }
-.info    { background: var(--color-primary); color: #fff; }
+.success {
+  background: var(--color-success);
+  color: #fff;
+}
 
-.icon { font-size: var(--font-size-lg); }
-.message { font-family: var(--font-family-base); }
+.error {
+  background: var(--color-danger);
+  color: #fff;
+}
 
-@keyframes slideUp {
-  from { opacity: 0; transform: translateX(-50%) translateY(16px); }
-  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+.info {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.icon {
+  font-size: var(--font-size-lg);
+}
+
+.message {
+  font-family: var(--font-family-base);
+}
+@keyframes popCenter {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+
+@media (max-width: 768px) {
+  .toast {
+    width: calc(100% - var(--spacing-xl) * 2);
+    justify-content: center;
+  }
 }

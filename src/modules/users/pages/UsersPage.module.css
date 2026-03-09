@@ -1,27 +1,72 @@
-.page { padding: var(--spacing-xl); display: flex; flex-direction: column; gap: var(--spacing-lg); }
-.header { display: flex; justify-content: space-between; align-items: center; }
-.title { font-size: var(--font-size-xl); font-weight: 700; color: var(--color-text-primary); margin: 0; }
+.page {
+  padding: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
 
-.tableWrapper { overflow-x: auto; border-radius: var(--radius-lg); border: 1px solid var(--color-border); }
-.table { width: 100%; border-collapse: collapse; font-size: var(--font-size-sm); }
-.table thead tr { background: #f9fafb; }
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.table thead tr {
+  background: #f9fafb;
+}
+
 .table th {
   padding: var(--spacing-sm) var(--spacing-md);
-  text-align: left; font-weight: 600;
+  text-align: left;
+  font-weight: 600;
   color: var(--color-text-secondary);
   border-bottom: 1px solid var(--color-border);
 }
+
 .table td {
   padding: var(--spacing-sm) var(--spacing-md);
   border-bottom: 1px solid var(--color-border);
   color: var(--color-text-primary);
 }
-.table tbody tr:last-child td { border-bottom: none; }
-.table tbody tr:hover { background: #f9fafb; }
-.rowInactive td { opacity: 0.5; }
 
-.name  { font-weight: 600; }
-.email { color: var(--color-text-secondary); }
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table tbody tr:hover {
+  background: #f9fafb;
+}
+
+.rowInactive td {
+  opacity: 0.5;
+}
+
+.name {
+  font-weight: 600;
+}
+
+.email {
+  color: var(--color-text-secondary);
+}
 
 .roleBadge {
   padding: 2px var(--spacing-sm);
@@ -33,11 +78,120 @@
 .statusBtn {
   padding: 2px var(--spacing-sm);
   border-radius: var(--radius-sm);
-  border: none; font-size: var(--font-size-xs);
-  font-weight: 600; cursor: pointer;
+  border: none;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  cursor: pointer;
   font-family: var(--font-family-base);
 }
-.statusActive  { background: #d1fae5; color: #065f46; }
-.statusInactive { background: #fee2e2; color: #991b1b; }
 
-.actions { display: flex; gap: var(--spacing-xs); flex-wrap: wrap; }
+.statusActive {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.statusInactive {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.actions {
+  display: flex;
+  gap: var(--spacing-xs);
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: var(--spacing-md);
+  }
+
+  .tableWrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table th,
+  .table td {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-xs);
+    white-space: nowrap;
+  }
+
+  .actions {
+    flex-direction: column;
+    min-width: unset;
+  }
+}
+
+/* ── Cards mobile ── */
+.cardList {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .tableWrapper {
+    display: none;
+  }
+
+  .cardList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .userCard {
+    background: #fff;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .cardInactive {
+    opacity: 0.55;
+  }
+
+  .cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  .cardName {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 2px;
+  }
+
+  .cardEmail {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+  }
+
+  .cardBadges {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--spacing-xs);
+  }
+
+  .cardActions {
+    display: flex;
+    gap: var(--spacing-xs);
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+}
+
+.confirmDelete {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}

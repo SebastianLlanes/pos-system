@@ -119,3 +119,14 @@
   color: var(--color-danger);
   margin: 0;
 }
+
+@media (max-width: 768px) {
+  .page {
+    padding: var(--spacing-md);
+    max-width: 100%;
+  }
+
+  .card {
+    padding: var(--spacing-md);
+  }
+}

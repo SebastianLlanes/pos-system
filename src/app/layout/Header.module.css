@@ -81,3 +81,22 @@
 .logoutButton:hover {
   opacity: 0.85;
 }
+
+@media (max-width: 768px) {
+  .header {
+    grid-template-columns: 1fr auto;
+    padding: 0 var(--spacing-md);
+  }
+
+  .center {
+    display: none;
+  }
+
+  .title {
+    font-size: var(--font-size-xs);
+  }
+
+  .username {
+    display: none;
+  }
+}

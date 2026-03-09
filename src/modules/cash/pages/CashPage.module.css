@@ -30,3 +30,21 @@
   margin-bottom: -2px;
 }
 .content { width: 100%; }
+
+@media (max-width: 768px) {
+  .page {
+    padding: var(--spacing-md);
+    max-width: 100%;
+  }
+
+  .tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: var(--spacing-xs);
+  }
+
+  .tab {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}
