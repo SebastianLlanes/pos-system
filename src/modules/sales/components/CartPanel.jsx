@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { CATEGORY_COLORS } from "../../../constants/categories";
 import Button from "../../../components/ui/Button";
 import styles from "./CartPanel.module.css";
 
-function CartItem({ item, onUpdateQuantity, onRemove, onApplyDiscount }) {
+function CartItem({ item, onUpdateQuantity, onRemove, onApplyDiscount, categoryColor }) {
   const [showDiscount, setShowDiscount] = useState(false);
   const [discountValue, setDiscountValue] = useState("");
   const [discountMode, setDiscountMode] = useState("percent");
@@ -16,7 +17,9 @@ function CartItem({ item, onUpdateQuantity, onRemove, onApplyDiscount }) {
   };
 
   return (
-    <div className={styles.item}>
+    <div 
+    className={styles.item}
+    style={{ borderRightColor: categoryColor }}>
       <div className={styles.itemHeader}>
         <div className={styles.itemInfo}>
           <span className={styles.itemName}>{item.name}</span>
@@ -102,6 +105,7 @@ function CartPanel({ items, itemsSubtotal, onUpdateQuantity, onRemove, onApplyDi
                 onUpdateQuantity={onUpdateQuantity}
                 onRemove={onRemove}
                 onApplyDiscount={onApplyDiscount}
+                categoryColor={CATEGORY_COLORS[item.category]?.border}
               />
             ))}
           </div>
@@ -109,7 +113,9 @@ function CartPanel({ items, itemsSubtotal, onUpdateQuantity, onRemove, onApplyDi
           <div className={styles.footer}>
             <div className={styles.totalRow}>
               <span className={styles.totalLabel}>Subtotal</span>
-              <span className={styles.totalAmount}>${itemsSubtotal.toLocaleString()}</span>
+              <span className={styles.totalAmount}>
+                ${itemsSubtotal.toLocaleString()}
+              </span>
             </div>
             <Button variant="success" size="lg" onClick={onCharge}>
               Cobrar ${itemsSubtotal.toLocaleString()}
