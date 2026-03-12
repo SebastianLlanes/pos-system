@@ -14,6 +14,7 @@ function PaymentModal({ itemsSubtotal, onConfirm, onCancel }) {
   const [discountValue, setDiscountValue] = useState("");
   const [discountMode, setDiscountMode] = useState("percent");
   const [payments, setPayments] = useState([{ method: "cash", amount: "" }]);
+  const [printReceipt, setPrintReceipt] = useState(false);
 
   useEffect(() => {
     getCustomers().then(setCustomers);
@@ -106,6 +107,7 @@ function PaymentModal({ itemsSubtotal, onConfirm, onCancel }) {
       totalDiscount: discountAmount,
       total,
       payments: cleanPayments,
+      printReceipt,
     });
   };
 
@@ -251,6 +253,19 @@ function PaymentModal({ itemsSubtotal, onConfirm, onCancel }) {
           {isFullyCovered && change === 0 && (
             <p className={styles.exact}>✓ Monto exacto</p>
           )}
+        </div>
+
+        {/* Comprobante fiscal */}
+        <div className={styles.receiptRow}>
+          <label className={styles.receiptLabel}>
+            <input
+              type="checkbox"
+              checked={printReceipt}
+              onChange={(e) => (e.target.checked)}
+              className={styles.receiptCheck}
+            />
+            Emitir comprobante fiscal
+          </label>
         </div>
 
         {/* Acciones */}
