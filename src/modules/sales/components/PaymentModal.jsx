@@ -1,14 +1,61 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { getCustomers } from "../services/customerService";
 import { PAYMENT_METHODS } from "../../../constants/paymentMethods";
 import Button from "../../../components/ui/Button";
 import Input from "../../../components/ui/Input";
 import styles from "./PaymentModal.module.css";
 
 function PaymentModal({ itemsSubtotal, onConfirm, onCancel }) {
-  const [customerName, setCustomerName]   = useState("");
+  const [customerName, setCustomerName] = useState("");
+  const [customers, setCustomers] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const suggestionRef = useRef(null);
   const [discountValue, setDiscountValue] = useState("");
-  const [discountMode, setDiscountMode]   = useState("percent");
-  const [payments, setPayments]           = useState([{ method: "cash", amount: "" }]);
+  const [discountMode, setDiscountMode] = useState("percent");
+  const [payments, setPayments] = useState([{ method: "cash", amount: "" }]);
+
+  useEffect(() => {
+    getCustomers().then(setCustomers);
+  }, []);
+
+  // Cerrar sugerencias al clickear afuera
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (suggestionRef.current && !suggestionRef.current.contains(e.target)) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+ const handleCustomerChange = (value) => {
+   setCustomerName(value);
+   if (value.trim().length >= 1) {
+     const filtered = customers.filter((c) =>
+       normalize(c.name).includes(normalize(value)),
+     );
+     setSuggestions(filtered);
+     setShowSuggestions(filtered.length > 0);
+   } else {
+     setSuggestions([]);
+     setShowSuggestions(false);
+   }
+ };
+
+ const normalize = (str) =>
+   str
+     .normalize("NFD")
+     .replace(/[\u0300-\u036f]/g, "")
+     .toLowerCase()
+     .trim();
+
+  const handleSelectSuggestion = (name) => {
+    setCustomerName(name);
+    setSuggestions([]);
+    setShowSuggestions(false);
+  };
 
   // ── Descuento sobre total ──
   const discountAmount = (() => {
@@ -68,26 +115,57 @@ function PaymentModal({ itemsSubtotal, onConfirm, onCancel }) {
         <h3 className={styles.title}>Cobrar venta</h3>
 
         {/* Cliente */}
-        <Input
-          label="Nombre del cliente (opcional)"
-          value={customerName}
-          onChange={(e) => setCustomerName(e.target.value)}
-          placeholder="Ej: María García"
-        />
+        {/* Cliente */}
+        <div className={styles.customerWrapper} ref={suggestionRef}>
+          <label className={styles.customerLabel}>
+            Nombre del cliente (opcional)
+          </label>
+          <input
+            className={styles.customerInput}
+            type="text"
+            placeholder="Ej: María García"
+            value={customerName}
+            onChange={(e) => handleCustomerChange(e.target.value)}
+            onFocus={() => {
+              if (suggestions.length > 0) setShowSuggestions(true);
+            }}
+            autoComplete="off"
+          />
+          {showSuggestions && (
+            <div className={styles.suggestions}>
+              {suggestions.map((c) => (
+                <button
+                  key={c.id}
+                  className={styles.suggestionItem}
+                  onClick={() => handleSelectSuggestion(c.name)}
+                  type="button"
+                >
+                  {c.name}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
 
         {/* Descuento sobre total */}
         <div className={styles.section}>
-          <label className={styles.sectionLabel}>Descuento sobre el total</label>
+          <label className={styles.sectionLabel}>
+            Descuento sobre el total
+          </label>
           <div className={styles.discountRow}>
             <div className={styles.modeToggle}>
               <button
                 className={`${styles.modeBtn} ${discountMode === "percent" ? styles.modeBtnActive : ""}`}
                 onClick={() => setDiscountMode("percent")}
-              >%</button>
+              >
+                %
+              </button>
               <button
                 className={`${styles.modeBtn} ${discountMode === "amount" ? styles.modeBtnActive : ""}`}
                 onClick={() => setDiscountMode("amount")}
-              >$</button>
+              >
+                $
+              </button>
             </div>
             <input
               className={styles.discountInput}
@@ -142,7 +220,12 @@ function PaymentModal({ itemsSubtotal, onConfirm, onCancel }) {
                   onChange={(e) => updatePayment(i, "amount", e.target.value)}
                 />
                 {payments.length > 1 && (
-                  <button className={styles.removeBtn} onClick={() => removePayment(i)}>✕</button>
+                  <button
+                    className={styles.removeBtn}
+                    onClick={() => removePayment(i)}
+                  >
+                    ✕
+                  </button>
                 )}
               </div>
             ))}
@@ -156,10 +239,14 @@ function PaymentModal({ itemsSubtotal, onConfirm, onCancel }) {
         {/* Restante / Vuelto */}
         <div className={styles.balanceBox}>
           {!isFullyCovered && remaining > 0 && (
-            <p className={styles.remaining}>Falta cubrir: <strong>${remaining.toLocaleString()}</strong></p>
+            <p className={styles.remaining}>
+              Falta cubrir: <strong>${remaining.toLocaleString()}</strong>
+            </p>
           )}
           {isFullyCovered && change > 0 && (
-            <p className={styles.change}>Vuelto: <strong>${change.toLocaleString()}</strong></p>
+            <p className={styles.change}>
+              Vuelto: <strong>${change.toLocaleString()}</strong>
+            </p>
           )}
           {isFullyCovered && change === 0 && (
             <p className={styles.exact}>✓ Monto exacto</p>
@@ -168,8 +255,14 @@ function PaymentModal({ itemsSubtotal, onConfirm, onCancel }) {
 
         {/* Acciones */}
         <div className={styles.actions}>
-          <Button variant="ghost" onClick={onCancel}>Cancelar</Button>
-          <Button variant="success" onClick={handleConfirm} disabled={!isFullyCovered}>
+          <Button variant="ghost" onClick={onCancel}>
+            Cancelar
+          </Button>
+          <Button
+            variant="success"
+            onClick={handleConfirm}
+            disabled={!isFullyCovered}
+          >
             Confirmar venta
           </Button>
         </div>
