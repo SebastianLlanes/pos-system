@@ -17,7 +17,9 @@ export const getSalesSince = async (fromDate) => {
     orderBy("createdAt", "asc")
   );
   const snapshot = await getDocs(q);
-  return snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+  return snapshot.docs
+    .map((d) => ({ id: d.id, ...d.data() }))
+    .filter((s) => !s.family);
 };
 
 // Trae el último cierre registrado
