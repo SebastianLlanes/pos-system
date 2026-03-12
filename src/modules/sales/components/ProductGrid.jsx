@@ -4,6 +4,7 @@ import styles from "./ProductGrid.module.css";
 
 function ProductGrid({ products, onSelectProduct }) {
   const [activeCategory, setActiveCategory] = useState("all");
+  const [search, setSearch] = useState("");
 
   const activeProducts = products.filter((p) => p.active);
 
@@ -18,6 +19,12 @@ function ProductGrid({ products, onSelectProduct }) {
   const usedCategories = CATEGORIES.filter((cat) =>
     activeProducts.some((p) => p.category === cat)
   );
+
+  const displayed = search.trim()
+  ? filtered.filter((p) =>
+      p.name.toLowerCase().includes(search.toLowerCase().trim())
+    )
+  : filtered;
 
   return (
     <div className={styles.wrapper}>
@@ -49,9 +56,24 @@ function ProductGrid({ products, onSelectProduct }) {
         })}
       </div>
 
+       <div className={styles.searchWrapper}>
+      <input
+        className={styles.searchInput}
+        type="text"
+        placeholder="Buscar producto..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+      {search && (
+        <button className={styles.searchClear} onClick={() => setSearch("")}>
+          ✕
+        </button>
+      )}
+    </div>
+
       {/* Grilla */}
       <div className={styles.grid}>
-        {filtered.map((product) => {
+        {displayed.map((product) => {
           const colors = CATEGORY_COLORS[product.category] ?? {
             bg: "#f9fafb", border: "#e5e7eb", text: "#374151",
           };

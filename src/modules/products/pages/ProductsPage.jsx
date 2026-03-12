@@ -24,6 +24,7 @@ function ProductsPage() {
   const [filterCategory, setFilterCategory] = useState("all");
   const [toast, setToast] = useState(null);
   const showLoader = useMinLoading(loading);
+  const [search, setSearch] = useState("");
 
   const openAdd = () => {
     setEditingProduct(null);
@@ -48,13 +49,22 @@ function ProductsPage() {
     setToast({ message: editingProduct ? "Producto actualizado" : "Producto agregado", type: "success" }); // ← después muestra el toast
   };
 
-  const filtered =
-  filterCategory === "all"
-    ? [...products].sort(
-        (a, b) =>
-          CATEGORIES.indexOf(a.category) - CATEGORIES.indexOf(b.category)
-      )
-    : products.filter((p) => p.category === filterCategory);
+  const filtered = (() => {
+    let result =
+      filterCategory === "all"
+        ? [...products].sort(
+            (a, b) =>
+              CATEGORIES.indexOf(a.category) - CATEGORIES.indexOf(b.category)
+          )
+        : products.filter((p) => p.category === filterCategory);
+
+    if (search.trim()) {
+      result = result.filter((p) =>
+        p.name.toLowerCase().includes(search.toLowerCase().trim())
+      );
+    }
+    return result;
+  })();
 
   const formatPrice = (product) => {
     if (product.type === "weight")
@@ -104,6 +114,21 @@ function ProductsPage() {
             </button>
           );
         })}
+      </div>
+
+      <div className={styles.searchWrapper}>
+        <input
+          className={styles.searchInput}
+          type="text"
+          placeholder="Buscar producto..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        {search && (
+          <button className={styles.searchClear} onClick={() => setSearch("")}>
+            ✕
+          </button>
+        )}
       </div>
 
       {/* Tabla */}
