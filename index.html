@@ -24,8 +24,12 @@
 
     qz.security.setSignatureAlgorithm("SHA512");
 
- qz.security.setSignaturePromise(async function(toSign) {
-  const response = await fetch("http://localhost:3001/api/sign", {
+qz.security.setSignaturePromise(async function(toSign) {
+  const isLocal = window.location.hostname === "localhost";
+  const url = isLocal 
+    ? "http://localhost:3001/api/sign"
+    : "/api/sign";
+  const response = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ toSign: toSign })
