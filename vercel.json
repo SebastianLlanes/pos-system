@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/certificate.pem",
+      "destination": "/certificate.pem"
+    },
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
+  ]
+}
