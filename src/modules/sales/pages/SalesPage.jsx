@@ -12,6 +12,7 @@ import { useMinLoading } from "../../../hooks/useMinLoading";
 import Toast from "../../../components/ui/Toast";
 import styles from "./SalesPage.module.css";
 
+
 const MODAL = { NONE: "none", WEIGHT: "weight", VARIANT: "variant", PAYMENT: "payment" };
 
 function SalesPage() {
@@ -57,7 +58,7 @@ function SalesPage() {
   };
 
   // ── Confirmar venta ──────────────────────────────────────────
-const handleConfirmSale = async ({ customerName, totalDiscount, total, payments }) => {
+const handleConfirmSale = async ({ customerName, totalDiscount, total, payments, printReceipt }) => {
   const success = await confirmSale({
     items,
     itemsSubtotal,
@@ -65,6 +66,7 @@ const handleConfirmSale = async ({ customerName, totalDiscount, total, payments 
     total,
     payments,
     customerName,
+    printReceipt, // ← agregá esto
   });
   if (success) {
     clearCart();
@@ -98,6 +100,8 @@ const handleConfirmSale = async ({ customerName, totalDiscount, total, payments 
           onCharge={() => setActiveModal(MODAL.PAYMENT)}
         />
       </div>
+
+      
 
       {/* Modales */}
       {activeModal === MODAL.WEIGHT && selectedProduct && (
