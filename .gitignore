@@ -24,4 +24,5 @@ dist-ssr
 *.sw?
 
 # QZ Tray
-src/services/printer/private-key.pem
+private-key.pem
+*.pem
