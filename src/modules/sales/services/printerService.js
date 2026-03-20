@@ -1,27 +1,7 @@
 import qz from "qz-tray";
 
-// ── Certificado y firma ───────────────────────────────────
-const setupSigning = async () => {
-  const certResponse = await fetch("/certificate.pem");
-  const certText     = await certResponse.text();
-
-  qz.security.setCertificatePromise(() => Promise.resolve(certText));
-
-  qz.security.setSignatureAlgorithm("SHA512");
-  qz.security.setSignaturePromise((toSign) =>
-    fetch("/api/sign", {
-      method:  "POST",
-      headers: { "Content-Type": "application/json" },
-      body:    JSON.stringify({ toSign }),
-    })
-      .then((r) => r.json())
-      .then((d) => d.signature)
-  );
-};
-
 // ── Conexión ──────────────────────────────────────────────
 export const connectPrinter = async () => {
-  await setupSigning();
   if (qz.websocket.isActive()) return;
   await qz.websocket.connect();
 };
@@ -64,23 +44,20 @@ export const printTicket = async ({ items, total, payments, customerName }) => {
   const name    = customerName?.trim();
 
   const data = [
-    "\x1B\x40", // inicializar impresora
-    "\x1B\x61\x01", // centrar
+    "\x1B\x40",
+    "\x1B\x61\x01",
 
-    // Encabezado
     line,
     "* * *  Querer-T  * * *\n",
     "Panaderia & Pasteleria\n",
     line,
 
-    // Fecha y cliente
     center(date) + "\n",
     name ? center(`Cliente: ${name}`) + "\n" : "",
     line,
 
-    "\x1B\x61\x00", // izquierda
+    "\x1B\x61\x00",
 
-    // Detalle de items
     ...items.map((item) => {
       const nombre = item.name.substring(0, 20).padEnd(20);
       const precio = `$${item.subtotal.toLocaleString()}`.padStart(12);
@@ -98,25 +75,22 @@ export const printTicket = async ({ items, total, payments, customerName }) => {
 
     line,
 
-    // Medios de pago
     ...payments.map((p) => {
-      const label = PAYMENT_LABELS[p.method] ?? p.method;
+      const label  = PAYMENT_LABELS[p.method] ?? p.method;
       const metodo = label.padEnd(20);
-      const monto = `$${p.amount.toLocaleString()}`.padStart(12);
+      const monto  = `$${p.amount.toLocaleString()}`.padStart(12);
       return `${metodo}${monto}\n`;
     }),
 
     line,
 
-    // Total
-    "\x1B\x21\x10", // doble ancho
+    "\x1B\x21\x10",
     `TOTAL  $${total.toLocaleString()}\n`,
-    "\x1B\x21\x00", // texto normal
+    "\x1B\x21\x00",
 
     line,
 
-    // Pie
-    "\x1B\x61\x01", // centrar
+    "\x1B\x61\x01",
     name
       ? `Gracias ${name},\nte esperamos nuevamente!\n`
       : "Gracias por tu compra!\n",
@@ -126,7 +100,7 @@ export const printTicket = async ({ items, total, payments, customerName }) => {
     line,
 
     "\n\n\n",
-    "\x1D\x56\x41\x10", // corte de papel
+    "\x1D\x56\x41\x10",
   ];
 
   await qz.print(config, data);
