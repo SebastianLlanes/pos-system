@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# QZ Tray
+src/services/printer/private-key.pem

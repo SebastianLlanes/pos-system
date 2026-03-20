@@ -1,8 +1,27 @@
 import qz from "qz-tray";
 
+// ── Certificado y firma ───────────────────────────────────
+const setupSigning = async () => {
+  const certResponse = await fetch("/certificate.pem");
+  const certText     = await certResponse.text();
+
+  qz.security.setCertificatePromise(() => Promise.resolve(certText));
+
+  qz.security.setSignatureAlgorithm("SHA512");
+  qz.security.setSignaturePromise((toSign) =>
+    fetch("/api/sign", {
+      method:  "POST",
+      headers: { "Content-Type": "application/json" },
+      body:    JSON.stringify({ toSign }),
+    })
+      .then((r) => r.json())
+      .then((d) => d.signature)
+  );
+};
 
 // ── Conexión ──────────────────────────────────────────────
 export const connectPrinter = async () => {
+  await setupSigning();
   if (qz.websocket.isActive()) return;
   await qz.websocket.connect();
 };
