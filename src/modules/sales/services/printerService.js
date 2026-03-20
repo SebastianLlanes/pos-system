@@ -1,6 +1,5 @@
-import qz from "qz-tray";
+const qz = window.qz;
 
-// ── Conexión ──────────────────────────────────────────────
 export const connectPrinter = async () => {
   if (qz.websocket.isActive()) return;
   await qz.websocket.connect();
@@ -17,7 +16,6 @@ export const listPrinters = async () => {
   console.log("Impresoras disponibles:", printers);
   return printers;
 };
-
 // ── Helpers ───────────────────────────────────────────────
 const center = (text, width = 32) => {
   const spaces = Math.max(0, Math.floor((width - text.length) / 2));

@@ -25,4 +25,3 @@ dist-ssr
 
 # QZ Tray
 private-key.pem
-*.pem

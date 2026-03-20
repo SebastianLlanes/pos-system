@@ -9,5 +9,35 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-  </body>
-</html>
+   <script src="https://cdn.jsdelivr.net/npm/qz-tray@2.2.5/qz-tray.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    qz.security.setCertificatePromise(function(resolve, reject) {
+      fetch("/certificate.pem")
+        .then(function(r) { return r.text(); })
+        .then(function(text) {
+          console.log("Certificado cargado:", text.substring(0, 50));
+          resolve(text);
+        })
+        .catch(reject);
+    });
+
+    qz.security.setSignatureAlgorithm("SHA512");
+
+ qz.security.setSignaturePromise(async function(toSign) {
+  const response = await fetch("http://localhost:3001/api/sign", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ toSign: toSign })
+  });
+  const data = await response.json();
+  console.log("Firma recibida:", data.signature.substring(0, 20));
+  return data.signature;
+});
+
+    console.log("QZ Tray configurado");
+  });
+</script>
+    </body>
+    
+    </html>

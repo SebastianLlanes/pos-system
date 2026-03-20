@@ -12,6 +12,8 @@ import { useMinLoading } from "../../../hooks/useMinLoading";
 import Toast from "../../../components/ui/Toast";
 import styles from "./SalesPage.module.css";
 
+import { listPrinters } from "../services/printerService";
+
 
 const MODAL = { NONE: "none", WEIGHT: "weight", VARIANT: "variant", PAYMENT: "payment" };
 
@@ -87,6 +89,7 @@ const handleConfirmSale = async ({ customerName, totalDiscount, total, payments,
           products={products}
           onSelectProduct={handleSelectProduct}
         />
+        <button onClick={() => listPrinters()}>Ver impresoras</button>
       </div>
 
       {/* Carrito derecho */}
