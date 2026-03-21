@@ -33,7 +33,7 @@ const PAYMENT_LABELS = {
 };
 
 // ── Ticket simple ─────────────────────────────────────────
-export const printTicket = async ({ items, total, payments, customerName }) => {
+export const printTicket = async ({ items, total, payments, customerName, change = 0 }) => {
   await connectPrinter();
 
   const printer = "Text Only / Querer-T";
@@ -83,6 +83,9 @@ export const printTicket = async ({ items, total, payments, customerName }) => {
       const monto  = `$${p.amount.toLocaleString()}`.padStart(12);
       return `${metodo}${monto}\n`;
     }),
+
+    // Vuelto
+    change > 0 ? `${"Vuelto".padEnd(20)}$${change.toLocaleString().padStart(11)}\n` : "",
 
     line,
 

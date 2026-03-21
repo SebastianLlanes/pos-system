@@ -9,9 +9,10 @@ function ClosingForm({ salesCount, systemTotal, paymentBreakdown, onConfirm }) {
   const [notes, setNotes]                 = useState("");
   const [confirm, setConfirm]             = useState(false);
 
-  const declared    = parseFloat(declaredTotal) || 0;
-  const difference  = parseFloat((declared - systemTotal).toFixed(2));
-  const isPositive  = difference >= 0;
+const declared      = parseFloat(declaredTotal) || 0;
+const cashTotal     = paymentBreakdown?.cash ?? 0;
+const difference    = parseFloat((declared - cashTotal).toFixed(2));
+const isPositive    = difference >= 0;
 
   const handleSubmit = () => {
     if (!confirm) { setConfirm(true); return; }
@@ -31,7 +32,9 @@ function ClosingForm({ salesCount, systemTotal, paymentBreakdown, onConfirm }) {
         </div>
         <div className={styles.summaryItem}>
           <span className={styles.summaryLabel}>Total sistema</span>
-          <span className={styles.summaryTotal}>${systemTotal.toLocaleString()}</span>
+          <span className={styles.summaryTotal}>
+            ${systemTotal.toLocaleString()}
+          </span>
         </div>
       </div>
 
@@ -52,18 +55,26 @@ function ClosingForm({ salesCount, systemTotal, paymentBreakdown, onConfirm }) {
 
       {/* Monto declarado */}
       <Input
-        label="Monto físico en caja ($)"
+        label="Monto físico en caja - solo efectivo ($)"
         type="number"
         value={declaredTotal}
-        onChange={(e) => { setDeclaredTotal(e.target.value); setConfirm(false); }}
+        onChange={(e) => {
+          setDeclaredTotal(e.target.value);
+          setConfirm(false);
+        }}
         placeholder="0.00"
       />
 
       {/* Diferencia */}
       {declaredTotal !== "" && (
-        <div className={`${styles.difference} ${isPositive ? styles.positive : styles.negative}`}>
+        <div
+          className={`${styles.difference} ${isPositive ? styles.positive : styles.negative}`}
+        >
           <span>Diferencia</span>
-          <strong>{isPositive ? "+" : ""}{difference.toLocaleString()}</strong>
+          <strong>
+            {isPositive ? "+" : ""}
+            {difference.toLocaleString()}
+          </strong>
         </div>
       )}
 

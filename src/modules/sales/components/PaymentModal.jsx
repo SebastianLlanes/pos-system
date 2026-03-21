@@ -108,6 +108,7 @@ function PaymentModal({ itemsSubtotal, onConfirm, onCancel }) {
       total,
       payments: cleanPayments,
       printReceipt,
+      change,
     });
   };
 

@@ -6,7 +6,7 @@ export function useSale() {
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState(null);
 
-  const confirmSale = async ({ items, itemsSubtotal, totalDiscount, total, payments, customerName, printReceipt }) => {
+  const confirmSale = async ({ items, itemsSubtotal, totalDiscount, total, payments, customerName, printReceipt, change }) => {
     setLoading(true);
     setError(null);
     try {
@@ -18,11 +18,12 @@ export function useSale() {
         payments,
         customerName: customerName.trim() || "",
         printReceipt: printReceipt ?? false,
+        change: change ?? 0,
       });
 
       // Imprime siempre al confirmar venta
       try {
-        await printTicket({ items, total, payments, customerName });
+        await printTicket({ items, total, payments, customerName, change });
       } catch (printErr) {
         console.error("Error al imprimir:", printErr);
         // La venta ya quedó guardada, no cortamos el flujo

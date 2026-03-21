@@ -58,7 +58,7 @@ function SalesPage() {
   };
 
   // ── Confirmar venta ──────────────────────────────────────────
-const handleConfirmSale = async ({ customerName, totalDiscount, total, payments, printReceipt }) => {
+const handleConfirmSale = async ({ customerName, totalDiscount, total, payments, printReceipt, change }) => {
   const success = await confirmSale({
     items,
     itemsSubtotal,
@@ -66,7 +66,8 @@ const handleConfirmSale = async ({ customerName, totalDiscount, total, payments,
     total,
     payments,
     customerName,
-    printReceipt, // ← agregá esto
+    printReceipt, 
+    change, 
   });
   if (success) {
     clearCart();

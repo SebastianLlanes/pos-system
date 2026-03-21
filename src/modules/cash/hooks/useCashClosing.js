@@ -14,6 +14,10 @@ const buildBreakdown = (sales) => {
         breakdown[p.method] += p.amount;
       }
     });
+    // Restá el vuelto del efectivo
+    if (sale.change > 0) {
+      breakdown["cash"] -= sale.change;
+    }
   });
   return breakdown;
 };
@@ -58,6 +62,8 @@ export function useCashClosing() {
   const paymentBreakdown = buildBreakdown(sales);
   const salesCount = sales.length;
 
+  const cashTotal = paymentBreakdown?.cash ?? 0;
+
   const handleClose = async ({ declaredTotal, notes }) => {
     const today = new Date().toISOString().split("T")[0];
     await saveClosing({
@@ -66,7 +72,8 @@ export function useCashClosing() {
       systemTotal,
       paymentBreakdown,
       declaredTotal: parseFloat(declaredTotal),
-      difference: parseFloat((declaredTotal - systemTotal).toFixed(2)),
+      cashTotal,
+      difference: parseFloat((declaredTotal - cashTotal).toFixed(2)),
       notes: notes.trim(),
     });
     await fetchData();
