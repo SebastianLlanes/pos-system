@@ -37,7 +37,11 @@ export const printTicket = async ({ items, total, payments, customerName }) => {
   await connectPrinter();
 
   const printer = "Text Only / Querer-T";
-  const config  = qz.configs.create(printer, { scaleContent: false });
+  const config = qz.configs.create(printer, { 
+  scaleContent: false,
+  rawCommands: true,
+  encoding: "UTF-8"
+});
   const date    = new Date().toLocaleString("es-AR");
   const name    = customerName?.trim();
 
