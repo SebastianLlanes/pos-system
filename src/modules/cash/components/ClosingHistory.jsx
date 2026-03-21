@@ -1,7 +1,16 @@
 import styles from "./ClosingHistory.module.css";
 import { PAYMENT_METHODS } from "../../../constants/paymentMethods";
+import { printHistoricalClosing } from "../../../modules/sales/services/printerService";
 
 function ClosingHistory({ history }) {
+  const handlePrint = async (closing) => {
+    try {
+      await printHistoricalClosing(closing);
+    } catch (err) {
+      console.error("Error al imprimir:", err);
+    }
+  };
+
   if (history.length === 0) {
     return (
       <div className={styles.empty}>
@@ -52,6 +61,14 @@ function ClosingHistory({ history }) {
               {closing.notes && (
                 <p className={styles.notes}>📝 {closing.notes}</p>
               )}
+
+              {/* Botón imprimir */}
+              <button
+                className={styles.printBtn}
+                onClick={() => handlePrint(closing)}
+              >
+                🖨️ Imprimir cierre
+              </button>
             </div>
           );
         })}
