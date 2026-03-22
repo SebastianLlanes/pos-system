@@ -36,7 +36,7 @@ const PAYMENT_LABELS = {
 export const printTicket = async ({ items, total, payments, customerName, change = 0 }) => {
   await connectPrinter();
 
-  const printer = "Generic / Text Only";
+  const printer = "POS-80";
   const config = qz.configs.create(printer, { 
   scaleContent: false,
   rawCommands: true,
@@ -114,7 +114,7 @@ export const printTicket = async ({ items, total, payments, customerName, change
 export const printCashClosing = async ({ salesCount, systemTotal, paymentBreakdown, sales }) => {
   await connectPrinter();
 
-  const printer = "Text Only / Querer-T";
+  const printer = "POS-80";
   const config  = qz.configs.create(printer, { scaleContent: false, rawCommands: true, encoding: "UTF-8" });
   const date    = new Date().toLocaleString("es-AR");
 
@@ -184,7 +184,7 @@ export const printCashClosing = async ({ salesCount, systemTotal, paymentBreakdo
 export const printHistoricalClosing = async (closing) => {
   await connectPrinter();
 
-  const printer = "Text Only / Querer-T";
+  const printer = "POS-80";
   const config  = qz.configs.create(printer, { scaleContent: false, rawCommands: true, encoding: "UTF-8" });
 
   const PAYMENT_LABELS = {
