@@ -3,7 +3,7 @@
   inset: 0;
   background: rgba(0, 0, 0, 0.4);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   z-index: 200;
 }
@@ -12,6 +12,7 @@
   background: #fff;
   border-radius: var(--radius-lg);
   padding: var(--spacing-xl);
+  margin-top: 80px;
   width: 100%;
   max-width: 480px;
   box-shadow: var(--shadow-md);
