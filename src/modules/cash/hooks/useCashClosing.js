@@ -64,10 +64,16 @@ export function useCashClosing() {
 
   const cashTotal = paymentBreakdown?.cash ?? 0;
 
-  const handleClose = async ({ declaredTotal, notes }) => {
-    const now   = new Date();
-  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+ const handleClose = async ({ declaredTotal, notes }) => {
+  const now = new Date();
   
+  // Forzar fecha en zona horaria Argentina (UTC-3)
+  const argentinaOffset = -3 * 60; // minutos
+  const localOffset = now.getTimezoneOffset(); // minutos
+  const argentinaTime = new Date(now.getTime() + (localOffset + argentinaOffset) * 60000);
+  
+  const today = `${argentinaTime.getFullYear()}-${String(argentinaTime.getMonth() + 1).padStart(2, "0")}-${String(argentinaTime.getDate()).padStart(2, "0")}`;
+
     await saveClosing({
       date: today,
       salesCount,
